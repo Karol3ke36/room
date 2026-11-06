@@ -49,4 +49,7 @@ public class Film {
     public void setKategoria(String kategoria) {
         this.kategoria = kategoria;
     }
+
+    public Film() {
+    }
 }
