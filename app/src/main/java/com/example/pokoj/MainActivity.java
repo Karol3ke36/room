@@ -1,6 +1,9 @@
 package com.example.pokoj;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +15,8 @@ import androidx.room.RoomDatabase;
 
 public class MainActivity extends AppCompatActivity {
     FilmyDataBase filmyDataBase;
+    Button button;
+    EditText editTextText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +34,17 @@ public class MainActivity extends AppCompatActivity {
                 FilmyDataBase.class,
                 "kino_db"
         ).allowMainThreadQueries().build();
-        filmyDataBase.zwrocFilmyDAO().wstawDoBazyFilm(
+       /* filmyDataBase.zwrocFilmyDAO().wstawDoBazyFilm(
                 new Film("Blade runner 2077",2013, "sci-fi")
-        );
+        );*/
+        button = findViewById(R.id.button);
+        editTextText = findViewById(R.id.editTextText);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Film film = new Film(editTextText.getText().toString(),2000,"animacja");
+                filmyDataBase.zwrocFilmyDAO().wstawDoBazyFilm(film);
+            }
+        });
     }
 }
