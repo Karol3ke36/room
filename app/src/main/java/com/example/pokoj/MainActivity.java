@@ -20,11 +20,12 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     FilmyDataBase filmyDataBase;
-    Button button;
+    Button button, buttonAktualizuj;
     EditText editTextText;
     ListView listView;
     ArrayAdapter<Film> arrayAdapter;
     List<Film> filmy;
+    Film kliknietyFilm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 new Film("Blade runner 2077",2013, "sci-fi")
         );
         button = findViewById(R.id.button);
+        buttonAktualizuj = findViewById(R.id.buttonAktualizuj);
         editTextText = findViewById(R.id.editTextText);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +69,22 @@ public class MainActivity extends AppCompatActivity {
                 filmy.remove(i);
                 arrayAdapter.notifyDataSetChanged();
                 return false;
+            }
+        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
+                kliknietyFilm = filmy.get(i);
+                editTextText.setText(kliknietyFilm.getTytul());
+                buttonAktualizuj.setVisibility(View.VISIBLE);
+            }
+        });
+        buttonAktualizuj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                kliknietyFilm.setTytul(editTextText.getText().toString());
+                filmyDataBase.zwrocFilmyDAO().aktualizujFilmWBazi(kliknietyFilm);
+                arrayAdapter.notifyDataSetChanged();
             }
         });
     }
