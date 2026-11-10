@@ -52,4 +52,14 @@ public class Film {
 
     public Film() {
     }
+
+    @Override
+    public String toString() {
+        return "Film{" +
+                "id=" + id +
+                ", tytul='" + tytul + '\'' +
+                ", rokProdukcji=" + rokProdukcji +
+                ", kategoria='" + kategoria + '\'' +
+                '}';
+    }
 }
