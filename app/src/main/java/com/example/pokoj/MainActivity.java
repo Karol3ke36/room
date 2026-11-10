@@ -60,10 +60,13 @@ public class MainActivity extends AppCompatActivity {
         arrayAdapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, filmy);
         listView.setAdapter(arrayAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int i, long id) {
+                filmyDataBase.zwrocFilmyDAO().usunZBazy(arrayAdapter.getItem(i));
+                filmy.remove(i);
+                arrayAdapter.notifyDataSetChanged();
+                return false;
             }
         });
     }
